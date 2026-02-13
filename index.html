@@ -2,16 +2,17 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사운드포스트 악보 도서관 - Soundpost</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>사운드포스트 악보 도서관</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --wood-dark: #3d2b1f;
             --wood-grain: #5a4030;
             --accent-gold: #d4af37;
-            --bg-ivory: #faf8f5;
+            --bg-ivory: #fcfaf7;
             --text-dark: #2d2d2d;
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         body {
@@ -20,177 +21,197 @@
             color: var(--text-dark);
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* 수직 결 나무 판넬 느낌의 헤더 */
+        /* 수직 결 나무 판넬 헤더 (반응형 높이 조정) */
         header {
             background: repeating-linear-gradient(
                 90deg,
                 var(--wood-dark),
-                var(--wood-dark) 40px,
-                var(--wood-grain) 41px,
-                var(--wood-dark) 42px
+                var(--wood-dark) 30px,
+                var(--wood-grain) 31px,
+                var(--wood-dark) 32px
             );
             color: white;
-            padding: 4rem 1rem;
+            padding: 3rem 1rem;
             text-align: center;
-            border-bottom: 5px solid var(--accent-gold);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-bottom: 4px solid var(--accent-gold);
         }
 
         header h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 3.5rem;
+            font-size: 2.2rem;
             margin: 0;
-            letter-spacing: 8px;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            font-weight: 600;
         }
 
         header p {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 1.2rem;
-            margin-top: 10px;
-            letter-spacing: 2px;
-            opacity: 0.9;
+            font-size: 0.95rem;
+            margin-top: 8px;
+            opacity: 0.8;
+            letter-spacing: 1px;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 3rem 1.5rem;
+            padding: 2rem 1rem;
         }
 
-        /* 검색바 */
-        .search-box {
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        #songSearch {
-            width: 100%;
-            max-width: 500px;
-            padding: 15px 25px;
-            border: 1px solid #ddd;
-            border-radius: 30px;
-            font-size: 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            outline: none;
-        }
-
-        /* 곡 카드 리스트 */
-        .song-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .song-card {
+        /* 곡 카드 스타일 */
+        .song-item {
             background: white;
+            margin-bottom: 1rem;
             border-radius: 12px;
+            box-shadow: var(--card-shadow);
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            border-left: 6px solid var(--wood-dark);
-            transition: transform 0.2s;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .song-card:hover {
-            transform: translateX(5px);
+        /* 클릭 가능한 제목 영역 */
+        .song-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
         }
 
-        .song-info {
-            padding: 1.5rem 2rem;
-            background: #fdfdfd;
-            border-bottom: 1px solid #eee;
+        .song-header:active {
+            background-color: #f9f4ee;
         }
 
-        .song-info h3 {
+        .song-title h3 {
             margin: 0;
-            font-size: 1.5rem;
+            font-size: 1.15rem;
             color: var(--wood-dark);
+            line-height: 1.4;
         }
 
-        .song-info p {
-            margin: 5px 0 0;
-            font-size: 0.9rem;
+        .song-title p {
+            margin: 4px 0 0;
+            font-size: 0.85rem;
             color: #888;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        /* 파트별 버튼 그룹 */
+        /* 펼침 아이콘 */
+        .icon-arrow {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s;
+            fill: var(--accent-gold);
+        }
+
+        /* 펼쳐지는 파트보 영역 */
+        .part-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: #fafafa;
+        }
+
+        /* 활성화 상태 */
+        .song-item.active .part-content {
+            max-height: 500px; /* 충분한 높이 */
+            border-top: 1px solid #eee;
+        }
+
+        .song-item.active .icon-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* 파트 버튼 그리드 */
         .part-grid {
-            padding: 1.5rem 2rem;
+            padding: 1.5rem;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 1rem;
+            grid-template-columns: 1fr 1fr; /* 모바일 2열 */
+            gap: 10px;
+        }
+
+        @media (min-width: 600px) {
+            .part-grid {
+                grid-template-columns: repeat(3, 1fr); /* 데스크탑 3열 */
+            }
         }
 
         .part-btn {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 12px;
+            padding: 12px 5px;
             background: white;
-            border: 1.5px solid #eee;
+            border: 1px solid #ddd;
             border-radius: 8px;
             text-decoration: none;
             color: var(--text-dark);
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.85rem;
             transition: all 0.2s;
         }
 
-        .part-btn:hover {
-            background-color: var(--wood-dark);
+        .part-btn span {
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .part-btn:active {
+            background: var(--wood-dark);
             color: white;
             border-color: var(--wood-dark);
         }
 
-        .part-btn span {
-            margin-right: 8px;
-            font-weight: bold;
-            color: var(--accent-gold);
-        }
-
         footer {
             text-align: center;
-            padding: 4rem 1rem;
-            color: #aaa;
+            padding: 3rem 1rem;
             font-size: 0.8rem;
+            color: #aaa;
         }
+
     </style>
 </head>
 <body>
 
     <header>
         <h1>SOUNDPOST</h1>
-        <p>사운드포스트 아마추어 현악 오케스트라</p>
+        <p>사운드포스트 현악 오케스트라</p>
     </header>
 
-    <div class="container">
-        <div class="search-box">
-            <input type="text" id="songSearch" placeholder="연주곡 제목을 입력하세요..." onkeyup="filterSongs()">
-        </div>
-
-        <div class="song-list" id="songList">
-            <div class="song-card">
-                <div class="song-info">
-                    <h3>하이든 - 교향곡 제104번 '런던'</h3>
-                    <p>Haydn: Symphony No. 104 in D Major 'London'</p>
+    <div class="container" id="accordion">
+        
+        <div class="song-item">
+            <div class="song-header" onclick="toggleAccordion(this)">
+                <div class="song-title">
+                    <h3>하이든: 교향곡 제104번 '런던'</h3>
+                    <p>Haydn: Symphony No. 104 in D Major</p>
                 </div>
+                <svg class="icon-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+            <div class="part-content">
                 <div class="part-grid">
                     <a href="sheets/haydn104/vn1.pdf" class="part-btn" download><span>Vn 1</span> 제1바이올린</a>
                     <a href="sheets/haydn104/vn2.pdf" class="part-btn" download><span>Vn 2</span> 제2바이올린</a>
                     <a href="sheets/haydn104/va.pdf" class="part-btn" download><span>Va</span> 비올라</a>
                     <a href="sheets/haydn104/vc.pdf" class="part-btn" download><span>Vc/Db</span> 첼로&콘트라</a>
-                    <a href="sheets/haydn104/score.pdf" class="part-btn" download><span>Full</span> 총보</a>
+                    <a href="sheets/haydn104/score.pdf" class="part-btn" download style="grid-column: span 2;"><span>Full Score</span> 총보 다운로드</a>
                 </div>
             </div>
+        </div>
 
-            <div class="song-card">
-                <div class="song-info">
-                    <h3>차이코프스키 - 현을 위한 세레나데</h3>
-                    <p>Tchaikovsky: Serenade for Strings in C Major, Op. 48</p>
+        <div class="song-item">
+            <div class="song-header" onclick="toggleAccordion(this)">
+                <div class="song-title">
+                    <h3>차이코프스키: 현을 위한 세레나데</h3>
+                    <p>Tchaikovsky: Serenade for Strings Op. 48</p>
                 </div>
+                <svg class="icon-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+            <div class="part-content">
                 <div class="part-grid">
                     <a href="sheets/tchaikovsky/vn1.pdf" class="part-btn" download><span>Vn 1</span> 제1바이올린</a>
                     <a href="sheets/tchaikovsky/vn2.pdf" class="part-btn" download><span>Vn 2</span> 제2바이올린</a>
@@ -200,25 +221,85 @@
                 </div>
             </div>
         </div>
+
+        <div class="song-item">
+            <div class="song-header" onclick="toggleAccordion(this)">
+                <div class="song-title">
+                    <h3>그리그: 홀베르그 모음곡</h3>
+                    <p>Grieg: Holberg Suite, Op. 40</p>
+                </div>
+                <svg class="icon-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+            <div class="part-content">
+                <div class="part-grid">
+                    <a href="sheets/grieg/vn1.pdf" class="part-btn" download><span>Vn 1</span> 제1바이올린</a>
+                    <a href="sheets/grieg/vn2.pdf" class="part-btn" download><span>Vn 2</span> 제2바이올린</a>
+                    <a href="sheets/grieg/va.pdf" class="part-btn" download><span>Va</span> 비올라</a>
+                    <a href="sheets/grieg/vc.pdf" class="part-btn" download><span>Vc</span> 첼로</a>
+                    <a href="sheets/grieg/db.pdf" class="part-btn" download><span>Db</span> 콘트라베이스</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="song-item">
+            <div class="song-header" onclick="toggleAccordion(this)">
+                <div class="song-title">
+                    <h3>비발디: 사계 중 '봄'</h3>
+                    <p>Vivaldi: The Four Seasons 'Spring'</p>
+                </div>
+                <svg class="icon-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+            <div class="part-content">
+                <div class="part-grid">
+                    <a href="sheets/vivaldi/solo.pdf" class="part-btn" download><span>Solo</span> 솔로 바이올린</a>
+                    <a href="sheets/vivaldi/vn1.pdf" class="part-btn" download><span>Vn 1</span> 제1바이올린</a>
+                    <a href="sheets/vivaldi/vn2.pdf" class="part-btn" download><span>Vn 2</span> 제2바이올린</a>
+                    <a href="sheets/vivaldi/va.pdf" class="part-btn" download><span>Va</span> 비올라</a>
+                    <a href="sheets/vivaldi/vc.pdf" class="part-btn" download><span>Vc/Db</span> 첼로&콘트라</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="song-item">
+            <div class="song-header" onclick="toggleAccordion(this)">
+                <div class="song-title">
+                    <h3>엘가: 현을 위한 세레나데</h3>
+                    <p>Elgar: Serenade for Strings in E minor</p>
+                </div>
+                <svg class="icon-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+            <div class="part-content">
+                <div class="part-grid">
+                    <a href="sheets/elgar/vn1.pdf" class="part-btn" download><span>Vn 1</span> 제1바이올린</a>
+                    <a href="sheets/elgar/vn2.pdf" class="part-btn" download><span>Vn 2</span> 제2바이올린</a>
+                    <a href="sheets/elgar/va.pdf" class="part-btn" download><span>Va</span> 비올라</a>
+                    <a href="sheets/elgar/vc.pdf" class="part-btn" download><span>Vc</span> 첼로</a>
+                    <a href="sheets/elgar/db.pdf" class="part-btn" download><span>Db</span> 콘트라베이스</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <footer>
-        &copy; 2026 Soundpost String Orchestra. Created for members.
+        &copy; 2026 Soundpost String Orchestra. All rights reserved.
     </footer>
 
     <script>
-        function filterSongs() {
-            const input = document.getElementById('songSearch');
-            const filter = input.value.toLowerCase();
-            const cards = document.getElementsByClassName('song-card');
+        function toggleAccordion(element) {
+            const item = element.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // 다른 열려있는 항목 닫기 (선택 사항: 하나만 열리게 하려면 아래 주석 해제)
+            /*
+            const allItems = document.querySelectorAll('.song-item');
+            allItems.forEach(i => i.classList.remove('active'));
+            */
 
-            for (let i = 0; i < cards.length; i++) {
-                let title = cards[i].getElementsByTagName("h3")[0];
-                if (title.innerText.toLowerCase().indexOf(filter) > -1) {
-                    cards[i].style.display = "";
-                } else {
-                    cards[i].style.display = "none";
-                }
+            if (!isActive) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
             }
         }
     </script>
