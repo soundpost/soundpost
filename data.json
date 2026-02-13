@@ -1,24 +1,25 @@
 [
   {
-    "title": "하이든: 교향곡 제104번 '런던'",
-    "subtitle": "Haydn: Symphony No. 104 in D Major",
+    "title": "알라딘 메들리",
+    "subtitle": "Aladyn Medley",
     "parts": [
       { "code": "Vn 1", "name": "제1바이올린", "file": "sheets/haydn104/vn1.pdf" },
       { "code": "Vn 2", "name": "제2바이올린", "file": "sheets/haydn104/vn2.pdf" },
+      { "code": "Vn 1 easy", "name": "제1바이올린 easy", "file": "sheets/haydn104/vn1.pdf" },
+      { "code": "Vn 2 easy", "name": "제2바이올린 eesy", "file": "sheets/haydn104/vn2.pdf" },
       { "code": "Va", "name": "비올라", "file": "sheets/haydn104/va.pdf" },
-      { "code": "Vc/Db", "name": "첼로&콘트라", "file": "sheets/haydn104/vcdb.pdf" },
+      { "code": "Vc", "name": "첼로", "file": "sheets/haydn104/vcdb.pdf" },
       { "code": "Full", "name": "총보", "file": "sheets/haydn104/score.pdf" }
     ]
   },
   {
-    "title": "차이코프스키: 현을 위한 세레나데",
+    "title": "또다시 센과치히로의 행방불명",
     "subtitle": "Tchaikovsky: Serenade for Strings Op. 48",
     "parts": [
       { "code": "Vn 1", "name": "제1바이올린", "file": "sheets/tchaikovsky/vn1.pdf" },
       { "code": "Vn 2", "name": "제2바이올린", "file": "sheets/tchaikovsky/vn2.pdf" },
       { "code": "Va", "name": "비올라", "file": "sheets/tchaikovsky/va.pdf" },
-      { "code": "Vc", "name": "첼로", "file": "sheets/tchaikovsky/vc.pdf" },
-      { "code": "Db", "name": "콘트라베이스", "file": "sheets/tchaikovsky/db.pdf" }
+      { "code": "Vc", "name": "첼로", "file": "sheets/tchaikovsky/vc.pdf" }
     ]
   },
   {
