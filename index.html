@@ -1,13 +1,188 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>웹 호스팅</title>
+    <title>악보 보관소 - Score Archive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fdfbf7;      /* 따뜻한 종이 질감 배경 */
+            --header-bg: #4a3728;     /* 어두운 나무색 */
+            --accent-color: #c5a059;   /* 금빛 포인트 */
+            --text-main: #2c2c2c;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* 헤더 디자인: 수직 결의 나무 느낌을 살린 상단 바 */
+        header {
+            background-color: var(--header-bg);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            border-bottom: 4px solid var(--accent-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            margin-top: 10px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-color);
+            margin: 15px auto;
+        }
+
+        /* 악보 카드 그리드 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .card .category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            margin: 0 0 1rem 0;
+            font-size: 1.4rem;
+            color: var(--header-bg);
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        /* 다운로드 버튼 */
+        .download-btn {
+            display: inline-block;
+            background-color: var(--header-bg);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .download-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 5rem 1rem 3rem;
+            font-size: 0.85rem;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
-    git pages 입니다.
+
+    <header>
+        <h1>Music Score Archive</h1>
+        <p>현악 동호회원들을 위한 디지털 악보 보관소</p>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">Latest Scores</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <div>
+                    <span class="category">Symphony</span>
+                    <h3>베토벤 교향곡 제5번</h3>
+                    <p>구성: 제1바이올린, 제2바이올린, 비올라, 첼로, 콘트라베이스 파트보 포함</p>
+                </div>
+                <a href="sheets/score1.pdf" class="download-btn" download>악보 다운로드 (PDF)</a>
+            </div>
+
+            <div class="card">
+                <div>
+                    <span class="category">Ensemble</span>
+                    <h3>모차르트 - 아이네 클라이네</h3>
+                    <p>구성: 현악 사중주 및 합주용 풀 스코어</p>
+                </div>
+                <a href="sheets/score2.pdf" class="download-btn" download>악보 다운로드 (PDF)</a>
+            </div>
+
+            <div class="card">
+                <div>
+                    <span class="category">Exercise</span>
+                    <h3>스즈키 3권 연습곡</h3>
+                    <p>구성: 바이올린 연습용 보조 악보</p>
+                </div>
+                <a href="sheets/score3.pdf" class="download-btn" download>악보 다운로드 (PDF)</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 String Orchestra Club. All rights reserved.
+    </footer>
+
 </body>
 </html>
