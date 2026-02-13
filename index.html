@@ -3,186 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>악보 보관소 - Score Archive</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <title>사운드포스트 악보 도서관 - Soundpost</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fdfbf7;      /* 따뜻한 종이 질감 배경 */
-            --header-bg: #4a3728;     /* 어두운 나무색 */
-            --accent-color: #c5a059;   /* 금빛 포인트 */
-            --text-main: #2c2c2c;
-            --card-bg: #ffffff;
+            --wood-dark: #3d2b1f;
+            --wood-grain: #5a4030;
+            --accent-gold: #d4af37;
+            --bg-ivory: #faf8f5;
+            --text-dark: #2d2d2d;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            font-family: 'Noto Serif KR', serif;
+            background-color: var(--bg-ivory);
+            color: var(--text-dark);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
         }
 
-        /* 헤더 디자인: 수직 결의 나무 느낌을 살린 상단 바 */
+        /* 수직 결 나무 판넬 느낌의 헤더 */
         header {
-            background-color: var(--header-bg);
+            background: repeating-linear-gradient(
+                90deg,
+                var(--wood-dark),
+                var(--wood-dark) 40px,
+                var(--wood-grain) 41px,
+                var(--wood-dark) 42px
+            );
             color: white;
-            padding: 3rem 1rem;
+            padding: 4rem 1rem;
             text-align: center;
-            border-bottom: 4px solid var(--accent-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-bottom: 5px solid var(--accent-gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         header h1 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
             margin: 0;
-            font-size: 2.8rem;
-            letter-spacing: 2px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
         header p {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.2rem;
             margin-top: 10px;
-            opacity: 0.8;
-            font-weight: 300;
+            letter-spacing: 2px;
+            opacity: 0.9;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 4rem 1.5rem;
+            padding: 3rem 1.5rem;
         }
 
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            text-align: center;
+        /* 검색바 */
+        .search-box {
             margin-bottom: 3rem;
-            font-size: 2rem;
-            position: relative;
+            text-align: center;
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 2px;
-            background: var(--accent-color);
-            margin: 15px auto;
+        #songSearch {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 25px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            outline: none;
         }
 
-        /* 악보 카드 그리드 */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        /* 곡 카드 리스트 */
+        .song-list {
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.03);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .song-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--wood-dark);
+            transition: transform 0.2s;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        .song-card:hover {
+            transform: translateX(5px);
         }
 
-        .card .category {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+        .song-info {
+            padding: 1.5rem 2rem;
+            background: #fdfdfd;
+            border-bottom: 1px solid #eee;
         }
 
-        .card h3 {
-            font-family: 'Playfair Display', serif;
-            margin: 0 0 1rem 0;
-            font-size: 1.4rem;
-            color: var(--header-bg);
+        .song-info h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--wood-dark);
         }
 
-        .card p {
+        .song-info p {
+            margin: 5px 0 0;
             font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 2rem;
+            color: #888;
         }
 
-        /* 다운로드 버튼 */
-        .download-btn {
-            display: inline-block;
-            background-color: var(--header-bg);
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            padding: 1rem;
+        /* 파트별 버튼 그룹 */
+        .part-grid {
+            padding: 1.5rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .part-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            background: white;
+            border: 1.5px solid #eee;
             border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.9rem;
             font-weight: 500;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
 
-        .download-btn:hover {
-            background-color: var(--accent-color);
+        .part-btn:hover {
+            background-color: var(--wood-dark);
+            color: white;
+            border-color: var(--wood-dark);
+        }
+
+        .part-btn span {
+            margin-right: 8px;
+            font-weight: bold;
+            color: var(--accent-gold);
         }
 
         footer {
             text-align: center;
-            padding: 5rem 1rem 3rem;
-            font-size: 0.85rem;
-            color: #999;
+            padding: 4rem 1rem;
+            color: #aaa;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Music Score Archive</h1>
-        <p>현악 동호회원들을 위한 디지털 악보 보관소</p>
+        <h1>SOUNDPOST</h1>
+        <p>사운드포스트 아마추어 현악 오케스트라</p>
     </header>
 
     <div class="container">
-        <h2 class="section-title">Latest Scores</h2>
-        
-        <div class="grid">
-            <div class="card">
-                <div>
-                    <span class="category">Symphony</span>
-                    <h3>베토벤 교향곡 제5번</h3>
-                    <p>구성: 제1바이올린, 제2바이올린, 비올라, 첼로, 콘트라베이스 파트보 포함</p>
+        <div class="search-box">
+            <input type="text" id="songSearch" placeholder="연주곡 제목을 입력하세요..." onkeyup="filterSongs()">
+        </div>
+
+        <div class="song-list" id="songList">
+            <div class="song-card">
+                <div class="song-info">
+                    <h3>하이든 - 교향곡 제104번 '런던'</h3>
+                    <p>Haydn: Symphony No. 104 in D Major 'London'</p>
                 </div>
-                <a href="sheets/score1.pdf" class="download-btn" download>악보 다운로드 (PDF)</a>
+                <div class="part-grid">
+                    <a href="sheets/haydn104/vn1.pdf" class="part-btn" download><span>Vn 1</span> 제1바이올린</a>
+                    <a href="sheets/haydn104/vn2.pdf" class="part-btn" download><span>Vn 2</span> 제2바이올린</a>
+                    <a href="sheets/haydn104/va.pdf" class="part-btn" download><span>Va</span> 비올라</a>
+                    <a href="sheets/haydn104/vc.pdf" class="part-btn" download><span>Vc/Db</span> 첼로&콘트라</a>
+                    <a href="sheets/haydn104/score.pdf" class="part-btn" download><span>Full</span> 총보</a>
+                </div>
             </div>
 
-            <div class="card">
-                <div>
-                    <span class="category">Ensemble</span>
-                    <h3>모차르트 - 아이네 클라이네</h3>
-                    <p>구성: 현악 사중주 및 합주용 풀 스코어</p>
+            <div class="song-card">
+                <div class="song-info">
+                    <h3>차이코프스키 - 현을 위한 세레나데</h3>
+                    <p>Tchaikovsky: Serenade for Strings in C Major, Op. 48</p>
                 </div>
-                <a href="sheets/score2.pdf" class="download-btn" download>악보 다운로드 (PDF)</a>
-            </div>
-
-            <div class="card">
-                <div>
-                    <span class="category">Exercise</span>
-                    <h3>스즈키 3권 연습곡</h3>
-                    <p>구성: 바이올린 연습용 보조 악보</p>
+                <div class="part-grid">
+                    <a href="sheets/tchaikovsky/vn1.pdf" class="part-btn" download><span>Vn 1</span> 제1바이올린</a>
+                    <a href="sheets/tchaikovsky/vn2.pdf" class="part-btn" download><span>Vn 2</span> 제2바이올린</a>
+                    <a href="sheets/tchaikovsky/va.pdf" class="part-btn" download><span>Va</span> 비올라</a>
+                    <a href="sheets/tchaikovsky/vc.pdf" class="part-btn" download><span>Vc</span> 첼로</a>
+                    <a href="sheets/tchaikovsky/db.pdf" class="part-btn" download><span>Db</span> 콘트라베이스</a>
                 </div>
-                <a href="sheets/score3.pdf" class="download-btn" download>악보 다운로드 (PDF)</a>
             </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 String Orchestra Club. All rights reserved.
+        &copy; 2026 Soundpost String Orchestra. Created for members.
     </footer>
 
+    <script>
+        function filterSongs() {
+            const input = document.getElementById('songSearch');
+            const filter = input.value.toLowerCase();
+            const cards = document.getElementsByClassName('song-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getElementsByTagName("h3")[0];
+                if (title.innerText.toLowerCase().indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 </html>
