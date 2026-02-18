@@ -3,13 +3,11 @@
     "title": "알라딘 메들리",
     "subtitle": "Aladyn Medley",
     "parts": [
-      { "code": "Vn 1", "name": "제1바이올린", "file": "sheets/haydn104/vn1.pdf" },
-      { "code": "Vn 2", "name": "제2바이올린", "file": "sheets/haydn104/vn2.pdf" },
-      { "code": "Vn 1 easy", "name": "제1바이올린 easy", "file": "sheets/haydn104/vn1.pdf" },
-      { "code": "Vn 2 easy", "name": "제2바이올린 eesy", "file": "sheets/haydn104/vn2.pdf" },
-      { "code": "Va", "name": "비올라", "file": "sheets/haydn104/va.pdf" },
-      { "code": "Vc", "name": "첼로", "file": "sheets/haydn104/vcdb.pdf" },
-      { "code": "Full", "name": "총보", "file": "sheets/haydn104/score.pdf" }
+      { "code": "Vn 1", "name": "제1바이올린", "file": "https://drive.google.com/file/d/1YPFNLBFWaZwYfBmUJlKNZEtwNLOULsaA/view?usp=drive_link" },
+      { "code": "Vn 2", "name": "제2바이올린", "file": "https://drive.google.com/file/d/1cijxywimot675HLdqEEy2khfaNOYShTj/view?usp=drive_link" },
+      { "code": "Va", "name": "비올라", "file": "https://drive.google.com/file/d/1No70RADanQFPQQ6QLGkE4wRuQ6O1y57q/view?usp=drive_link" },
+      { "code": "Vc", "name": "첼로", "file": "https://drive.google.com/file/d/1o3w_-8fWZgoadfxp_3kmeTqONsSToOzQ/view?usp=drive_link" },
+      { "code": "Full", "name": "총보", "file": "https://drive.google.com/file/d/1K0Z1c9RojSksQzzM6s5iP0ymwvmdxhLW/view?usp=drive_link" }
     ]
   },
   {
