@@ -3,14 +3,14 @@
     "title": "알라딘 메들리",
     "subtitle": "Aladdin_Medley",
     "parts": [
-      { "code": "Vn 1", "name": "제1바이올린", "file": "https://drive.google.com/file/d/1_zhPQEYhJOeMd7l_mXpr3Wr0WYs2ouZi/view?usp=drive_link" },
-      { "code": "Vn 1 Adv", "name": "제1바이올린 심화", "file": "https://drive.google.com/file/d/1c0gNpQRZwABFrxgR0yTAr1q5zY8Fx_SL/view?usp=drive_link" },
-      { "code": "Vn 2", "name": "제2바이올린", "file": "https://drive.google.com/file/d/13ZRVzpqOrP5PNcxVB84a8l-ZmvmheP4Q/view?usp=drive_link" },
-      { "code": "Vn 2 Adv", "name": "제2바이올린 심화", "file": "https://drive.google.com/file/d/1yxKLQJf1RJbCbu3EAwG2PJP1jrrObffr/view?usp=drive_link" },
-      { "code": "Va", "name": "비올라", "file": "https://drive.google.com/file/d/18ScO1YRZ-XF-uMD9rPLaYw5z-Heaz_V6/view?usp=drive_link" },
-      { "code": "Vc", "name": "첼로", "file": "https://drive.google.com/file/d/1AY3MqDs7Ko8BBMSi3TGxS8aUDzvzey2z/view?usp=drive_link" },
-      { "code": "Score", "name": "총보", "file": "https://drive.google.com/file/d/1xUj7Hm0S9IlosGfNipFC5K1qUJLuM4gf/view?usp=drive_link" },
-      { "code": "MuseScore", "name": "MuseScore 원본", "file": "https://drive.google.com/file/d/1BDaxjeSdzeZ-BdgkfO6QG4nTCNvpNRhR/view?usp=drive_link" }
+      { "code": "Vn 1", "name": "제1바이올린", "file": "https://drive.google.com/file/d/1pbJiSdEnO1ig4-82tMmhLEAVUokyBBhz/view?usp=drive_link" },
+      { "code": "Vn 1 Adv", "name": "제1바이올린 심화", "file": "https://drive.google.com/file/d/1rojqmhw9VWJgcUVWAGdFzQpKYWQe5Nid/view?usp=drive_link" },
+      { "code": "Vn 2", "name": "제2바이올린", "file": "https://drive.google.com/file/d/1GvR5vLF9J9nmqLHAFyXQjoawJVrPdpAb/view?usp=drive_link" },
+      { "code": "Vn 2 Adv", "name": "제2바이올린 심화", "file": "https://drive.google.com/file/d/1EXfmBa2UBC4V8WlqXIUVB87l9KabiXvx/view?usp=drive_link" },
+      { "code": "Va", "name": "비올라", "file": "https://drive.google.com/file/d/125Rsc8MDG4qoivJoTH_cpRKK4T9c5whE/view?usp=drive_link" },
+      { "code": "Vc", "name": "첼로", "file": "https://drive.google.com/file/d/1qCig2fgk-JmWmI11vn9DrCR64717yS-z/view?usp=drive_link" },
+      { "code": "Score", "name": "총보", "file": "https://drive.google.com/file/d/1ZiPkS_doHj8rvziqXjdbqtpVhrvN8Ybl/view?usp=drive_link" },
+      { "code": "MuseScore", "name": "MuseScore 원본", "file": "https://drive.google.com/file/d/1EyfVG6dyT2IlLylchO4HDdpnZsvLewJW/view?usp=drive_link" }
     ]
   },
   {
