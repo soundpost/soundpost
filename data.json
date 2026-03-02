@@ -2,22 +2,16 @@
   {
     "title": "언제나 몇 번 이라도 (Always With Me)",
     "subtitle": "지브리/기무라 유미 (Kimura Yumi)",
-    "parts": [
-      {
-        "code": "Vn 1",
-        "name": "1바이올린",
-        "file": ""
-      }
-    ]
+    "parts": []
   },
   {
     "title": "바람이 지나가는 길 (Path of The Wind)",
     "subtitle": "지브리/히사이시 조 (Hisaishi Joe)",
     "parts": [
       {
-        "code": "MuseScore",
-        "name": "MuseScore 원본",
-        "file": "https://drive.google.com/file/d/1EyfVG6dyT2IlLylchO4HDdpnZsvLewJW/view?usp=drive_link"
+        "code": "Vn 1",
+        "name": "1바이올린",
+        "file": ""
       }
     ]
   },
@@ -64,6 +58,11 @@
         "code": "Score",
         "name": "총보",
         "file": "https://drive.google.com/file/d/1ZiPkS_doHj8rvziqXjdbqtpVhrvN8Ybl/view?usp=drive_link"
+      },
+      {
+        "code": "MuseScore",
+        "name": "MuseScore 원본",
+        "file": "https://drive.google.com/file/d/1EyfVG6dyT2IlLylchO4HDdpnZsvLewJW/view?usp=drive_link"
       }
     ]
   },
@@ -80,11 +79,6 @@
   {
     "title": "Kindersinfonie (장난감 교향곡)",
     "subtitle": "L. Mozart / J. Haydn",
-    "parts": []
-  },
-  {
-    "title": "[Test] 또다시 센과치히로의 행방불명",
-    "subtitle": "Tchaikovsky: Serenade for Strings Op. 48",
     "parts": [
       {
         "code": "Vn 1",
