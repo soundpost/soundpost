@@ -13,7 +13,13 @@
   {
     "title": "바람이 지나가는 길 (Path of The Wind)",
     "subtitle": "지브리/히사이시 조 (Hisaishi Joe)",
-    "parts": []
+    "parts": [
+      {
+        "code": "MuseScore",
+        "name": "MuseScore 원본",
+        "file": "https://drive.google.com/file/d/1EyfVG6dyT2IlLylchO4HDdpnZsvLewJW/view?usp=drive_link"
+      }
+    ]
   },
   {
     "title": "또 다시 (Spirited Away Reprise)",
@@ -30,14 +36,14 @@
         "file": "https://drive.google.com/file/d/1pbJiSdEnO1ig4-82tMmhLEAVUokyBBhz/view?usp=drive_link"
       },
       {
-        "code": "Vn 1 Adv",
-        "name": "제1바이올린 심화",
-        "file": "https://drive.google.com/file/d/1rojqmhw9VWJgcUVWAGdFzQpKYWQe5Nid/view?usp=drive_link"
-      },
-      {
         "code": "Vn 2",
         "name": "제2바이올린",
         "file": "https://drive.google.com/file/d/1GvR5vLF9J9nmqLHAFyXQjoawJVrPdpAb/view?usp=drive_link"
+      },
+      {
+        "code": "Vn 1 Adv",
+        "name": "제1바이올린 심화",
+        "file": "https://drive.google.com/file/d/1rojqmhw9VWJgcUVWAGdFzQpKYWQe5Nid/view?usp=drive_link"
       },
       {
         "code": "Vn 2 Adv",
@@ -58,11 +64,6 @@
         "code": "Score",
         "name": "총보",
         "file": "https://drive.google.com/file/d/1ZiPkS_doHj8rvziqXjdbqtpVhrvN8Ybl/view?usp=drive_link"
-      },
-      {
-        "code": "MuseScore",
-        "name": "MuseScore 원본",
-        "file": "https://drive.google.com/file/d/1EyfVG6dyT2IlLylchO4HDdpnZsvLewJW/view?usp=drive_link"
       }
     ]
   },
