@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>사운드포스트 어드민 - 모바일</title>
+    <style>
+        :root {
+            --wood: #3d2b1f;
+            --gold: #d4af37;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding-bottom: 80px; /* 하단 버튼 공간 */
+            color: #333;
+        }
+
+        header {
+            background-color: var(--wood);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .container { padding: 15px; }
+
+        /* 설정 세션 */
+        .config-card {
+            background: #eee;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input, button {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 12px;
+            font-size: 16px; /* 모바일 줌 방지 */
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* 곡 카드 */
+        .song-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .song-header {
+            padding: 15px;
+            background: #fafafa;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .song-body { padding: 15px; }
+
+        .part-item {
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .part-inputs {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        /* 버튼 스타일 */
+        .btn-add-song { background: #666; color: white; margin-bottom: 20px; }
+        .btn-add-part { background: #eee; color: #333; font-size: 0.9rem; }
+        .btn-remove { background: #ffeeee; color: var(--danger); border: none; padding: 5px 10px; font-size: 0.8rem; width: auto; }
+
+        /* 하단 고정 바 */
+        .footer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .btn-save { background: var(--gold); color: white; border: none; flex: 2; font-weight: bold; }
+        .btn-load { background: var(--wood); color: white; border: none; flex: 1; }
+        
+        h3, h4 { margin: 0; }
+        .label { font-size: 0.8rem; color: #888; margin-bottom: 4px; display: block; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h4>SOUNDPOST Admin</h4>
+</header>
+
+<div class="container">
+    <div class="config-card">
+        <span class="label">GitHub 인증 정보</span>
+        <input type="password" id="ghToken" placeholder="GitHub Token">
+        <input type="text" id="ghRepo" placeholder="아이디/저장소명">
+    </div>
+
+    <div id="editor">
+        <p style="text-align:center; color:#888;">데이터를 불러와 주세요.</p>
+    </div>
+
+    <button class="btn-add-song" onclick="addSong()">+ 새로운 곡 추가</button>
+</div>
+
+<div class="footer-bar">
+    <button class="btn-load" onclick="loadCurrentData()">불러오기</button>
+    <button class="btn-save" onclick="saveToGithub()">GitHub에 저장</button>
+</div>
+
+<script>
+    let currentData = [];
+    let fileSha = "";
+
+    async function loadCurrentData() {
+        const token = document.getElementById('ghToken').value;
+        const repo = document.getElementById('ghRepo').value;
+        if(!token || !repo) return alert("인증 정보를 입력하세요.");
+
+        try {
+            const response = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
+                headers: { 'Authorization': `token ${token}` }
+            });
+            const data = await response.json();
+            fileSha = data.sha;
+            // 한글 처리를 위한 base64 디코딩
+            currentData = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+            renderEditor();
+        } catch (e) {
+            alert("데이터를 불러오는데 실패했습니다.");
+        }
+    }
+
+    function renderEditor() {
+        const editor = document.getElementById('editor');
+        editor.innerHTML = '';
+        currentData.forEach((song, sIdx) => {
+            const card = document.createElement('div');
+            card.className = 'song-card';
+            card.innerHTML = `
+                <div class="song-header">
+                    <h3>곡 #${sIdx + 1}</h3>
+                    <button class="btn-remove" onclick="removeSong(${sIdx})">삭제</button>
+                </div>
+                <div class="song-body">
+                    <span class="label">곡 제목</span>
+                    <input type="text" value="${song.title}" onchange="updateSong(${sIdx}, 'title', this.value)" style="margin-bottom:10px;">
+                    <span class="label">부제목 (작곡가)</span>
+                    <input type="text" value="${song.subtitle}" onchange="updateSong(${sIdx}, 'subtitle', this.value)" style="margin-bottom:15px;">
+                    
+                    <span class="label">파트보 목록</span>
+                    <div id="parts-${sIdx}">
+                        ${song.parts.map((p, pIdx) => `
+                            <div class="part-item">
+                                <div class="part-inputs">
+                                    <input type="text" value="${p.code}" onchange="updatePart(${sIdx}, ${pIdx}, 'code', this.value)" placeholder="코드">
+                                    <input type="text" value="${p.name}" onchange="updatePart(${sIdx}, ${pIdx}, 'name', this.value)" placeholder="파트이름">
+                                </div>
+                                <input type="text" value="${p.file}" onchange="updatePart(${sIdx}, ${pIdx}, 'file', this.value)" placeholder="파일경로" style="margin-bottom:8px;">
+                                <button class="btn-remove" onclick="removePart(${sIdx}, ${pIdx})">파트 삭제</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="btn-add-part" onclick="addPart(${sIdx})">+ 파트 추가</button>
+                </div>
+            `;
+            editor.appendChild(card);
+        });
+    }
+
+    function updateSong(sIdx, key, val) { currentData[sIdx][key] = val; }
+    function addSong() { currentData.unshift({title:"", subtitle:"", parts:[]}); renderEditor(); }
+    function removeSong(sIdx) { if(confirm("곡을 삭제할까요?")) { currentData.splice(sIdx, 1); renderEditor(); } }
+    function addPart(sIdx) { currentData[sIdx].parts.push({code:"", name:"", file:""}); renderEditor(); }
+    function updatePart(sIdx, pIdx, key, val) { currentData[sIdx].parts[pIdx][key] = val; }
+    function removePart(sIdx, pIdx) { currentData[sIdx].parts.splice(pIdx, 1); renderEditor(); }
+
+    async function saveToGithub() {
+        const token = document.getElementById('ghToken').value;
+        const repo = document.getElementById('ghRepo').value;
+        if(!token || !fileSha) return alert("먼저 데이터를 불러와야 저장할 수 있습니다.");
+
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2))));
+        
+        try {
+            const response = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
+                method: 'PUT',
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: "Update via Mobile Admin",
+                    content: content,
+                    sha: fileSha
+                })
+            });
+
+            if(response.ok) alert("✅ 저장 성공! 페이지에 반영됩니다.");
+            else alert("❌ 저장 실패.");
+        } catch (e) {
+            alert("네트워크 오류가 발생했습니다.");
+        }
+    }
+</script>
+</body>
+</html>
