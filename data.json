@@ -2,7 +2,28 @@
   {
     "title": "언제나 몇 번 이라도 (Always With Me)",
     "subtitle": "지브리/기무라 유미 (Kimura Yumi)",
-    "parts": []
+    "parts": [
+      {
+        "code": "Vn1",
+        "name": "1바이올린",
+        "file": "https://drive.google.com/file/d/1tmhF4gOGCtPO3EourlDhQtLVWqLoiOpC/view?usp=drivesdk"
+      },
+      {
+        "code": "Vn2",
+        "name": "",
+        "file": "https://drive.google.com/file/d/1PlC14tl7jnkT725PzqEn4ysjGN2-zfZx/view?usp=drivesdk"
+      },
+      {
+        "code": "Va",
+        "name": "비올라",
+        "file": "https://drive.google.com/file/d/1azcfYhGW5zoMMWFrr6WUGGSfqpOF1tB3/view?usp=drivesdk"
+      },
+      {
+        "code": "Vc",
+        "name": "첼로",
+        "file": "https://drive.google.com/file/d/1wYX9wsygzME-OUW1gpHq1LN7g2vZpiLx/view?usp=drivesdk"
+      }
+    ]
   },
   {
     "title": "바람이 지나가는 길 (Path of The Wind)",
